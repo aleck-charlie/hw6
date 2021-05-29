@@ -1,0 +1,23 @@
+header {
+    font-size: large;
+    font-weight: bold;
+    color: cornsilk;
+    text-align: center;
+    background: rgb(100, 14, 238);
+};
+
+.main-display {
+    display: flex;
+    flex-direction: row;
+    border: solid;
+    border-color: mediumseagreen;
+}
+
+.search-form {
+    display: flex;
+    flex-direction: row;
+}
+
+.city-container {
+    background: mintcream;
+}
