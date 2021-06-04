@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/style.css">
-    
+
 
     <title>Weather Tracker</title>
 </head>
@@ -21,37 +21,16 @@
             <form>
                 <legend>Search by City</legend>
                 <p>
-                    <input type="text" id="search-form" name="q" placeholder="Chicago..">
+                    <input type="text" id="search-form" name="q" placeholder="Search for a city..">
                     <button id="submit">Submit</button>
                 </p>
             </form>
         </div>
 
-        <!-- right column  ------------------------------------>
-        <div class="city-container">
-            <p>
-                City
-            </p>
-            <p>
-                Temp:
-            </p>
-            <p>
-                Wind:
-            </p>
-            <p>
-                Humidity:
-            </p>
-            <p>
-                UV Index:
-            </p>
-
+        <!-- Right column : Forecast Card  ------------------------------------>
+        <div id="city-container">
         </div>
     </div>
-    <!--- container for city, date, temp, wind, humity, uv index -->
-    <!-- color of the uv index -->
-    <!-- container for five day forecast (loop and create card)-->
-    <!-- date, icon for weather, temp, wind, humidity -->
-    <!-- each card will have date, icon for weather, temp, wind and humidity -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="./assets/script.js"></script>
