@@ -15,11 +15,20 @@ header {
 
 .search-form {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    float: left;
 }
 
+
 .city-container {
-    background: mintcream;
+    background: rgb(218, 219, 219);
+    display: flex;
+    flex-direction: column;
+}
+
+.card {
+    display: flex;
+    flex-direction: row;
 }
 
 .low {

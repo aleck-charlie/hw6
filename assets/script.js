@@ -11,7 +11,7 @@ function init() {
         // loop thru local storage and render buttons with the button label as the city
         cities = JSON.parse(cities)
         console.log(cities);
-        renderCityBtn
+        renderBtn();
     };
 
 };
@@ -75,17 +75,39 @@ function getFiveDay(city) {
                 let forecastCard = $('#city-container');
 
                 $(forecastCard).append(
-                    `<div>
+                    `<div class="card">
               <p>${date}</p>
               <p>Temp: ${day.main.temp} °F</p>
               <p>Wind: ${day.wind.speed} mph</p>
               <p>Humidity: ${day.main.humidity} %</p>
+              
           </div>`
                 );
             };
         })
 };
 
+function savedCity(searchCity) {
+    if (!cities.includes(searchCity)) {
+        cities.push(searchCity);
+    }
+    localStorage.setItem('city', JSON.stringify(city));
+    cityBtn();
+    console.log(city);
+}
+
+function renderBtn() {
+    cityBtns.textContent = '';
+    city = city.slice(Math.max(city.length - 5, 0));
+    city.forEach(city => {
+        let btn = document.createElement('button');
+        cityBtn.prepend(btn);
+        btn.setAttribute('class', 'btn btn-outline-secondary btn-block');
+        btn.setAttribute('data-city', city);
+
+        btn.innerHTML = city;
+    })
+}
 // saves cities to local storage
 // function submitSave() {
 
