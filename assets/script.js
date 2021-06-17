@@ -60,27 +60,28 @@ function getUVI(lat, lon) {
                 uvEl.attr('class', 'extreme');
             }
             uvEl.innerHTML = `UV Index: ${uviScore}`;
-        })
+        });
+        getDay(data);
 };
 
 // Current Weather
 
-function getDay(data) {
+function getDay() {
     let dayCard = $('#day-card');
     dayCard.html("");
 
-    let todayDate = new Date(unixTime * 1000);
-    let currentDay = $('#current-day')
+    let todayDate = new Date();
     
-    $(currentDay).append (
+    $("#day-card").append (
         `<div>
         <p>${todayDate}</p>
-        <p>Temp: ${data.current.temp}</p>
-        <p>Wind: ${data.current.wind.speed}</p>
-        <p>Humidity: ${data.current.humidity}%</p>
-        <p>UV Index: ${data.current.uvi}</p>
+        <p>Temp: ${data.temp}</p>
+        <p>Wind: ${data.wind_speed}</p>
+        <p>Humidity: ${data.humidity}%</p>
+        <p>UV Index: ${data.uvi}</p>
         </div>`
     );
+    console.log(data);
 };
 
 // 5 Day Forecast
@@ -104,8 +105,7 @@ function getFiveDay(city) {
               <p>Humidity: ${day.main.humidity} %</p>
           </div>`
                 );
-            }
-            getDay(data);
+            };
         })
 };
 
