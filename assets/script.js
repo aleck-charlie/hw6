@@ -63,6 +63,26 @@ function getUVI(lat, lon) {
         })
 };
 
+// Current Weather
+
+function getDay(data) {
+    let dayCard = $('#day-card');
+    dayCard.html("");
+
+    let todayDate = new Date(unixTime * 1000);
+    let currentDay = $('#current-day')
+    
+    $(currentDay).append (
+        `<div>
+        <p>${todayDate}</p>
+        <p>Temp: ${data.current.temp}</p>
+        <p>Wind: ${data.current.wind.speed}</p>
+        <p>Humidity: ${data.current.humidity}%</p>
+        <p>UV Index: ${data.current.uvi}</p>
+        </div>`
+    );
+};
+
 // 5 Day Forecast
 function getFiveDay(city) {
     let cardContainer = $('#city-container');
@@ -82,13 +102,14 @@ function getFiveDay(city) {
               <p>Temp: ${day.main.temp} °F</p>
               <p>Wind: ${day.wind.speed} mph</p>
               <p>Humidity: ${day.main.humidity} %</p>
-              
           </div>`
                 );
-            };
+            }
+            getDay(data);
         })
 };
 
+// Save City Search
 function savedCity(searchCity) {
     if (!cities.includes(searchCity)) {
         cities.push(searchCity);
@@ -110,17 +131,8 @@ function renderBtn() {
         btn.innerHTML = city;
     })
 }
-// saves cities to local storage
-// function submitSave() {
 
-// };
-
-// // renders city buttons for previous searches
-// function renderCityBtn() {
-
-// };
-
-//events ////////////////////////////////
+//Events ////////////////////////////////
 
 // Search Button
 $('#submit').on('click', getCity);
