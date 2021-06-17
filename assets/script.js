@@ -65,6 +65,8 @@ function getUVI(lat, lon) {
 
 // 5 Day Forecast
 function getFiveDay(city) {
+    let cardContainer = $('#city-container');
+    cardContainer.html("");
     fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${key}`)
         .then(response => response.json())
         .then(data => {
