@@ -32,7 +32,7 @@ function getWeather(city) {
             console.log(lat);
             console.log(lon);
             getUVI(lat, lon);
-            getFiveDay(city);
+            getFiveDay(lat,lon);
         })
 };
 
@@ -61,53 +61,39 @@ function getUVI(lat, lon) {
             }
             uvEl.innerHTML = `UV Index: ${uviScore}`;
         });
-        getDay(data);
 };
 
 // Current Weather
 
-function getDay() {
-    let dayCard = $('#day-card');
-    dayCard.html("");
-
-    let todayDate = new Date();
-    
-    $("#day-card").append (
-        `<div>
-        <p>${todayDate}</p>
-        <p>Temp: ${data.temp}</p>
-        <p>Wind: ${data.wind_speed}</p>
-        <p>Humidity: ${data.humidity}%</p>
-        <p>UV Index: ${data.uvi}</p>
-        </div>`
-    );
-    console.log(data);
-};
 
 // 5 Day Forecast
-function getFiveDay(city) {
+function getFiveDay(lat, lon) {
     let cardContainer = $('#city-container');
     cardContainer.html("");
-    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${key}`)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            for (let i = 0; i < data.list.length; i += 8) {
-                const day = data.list[i];
-                let date = new Date(day.dt * 1000);
-                let forecastCard = $('#city-container');
-
-                $(forecastCard).append(
-                    `<div class="card">
-              <p>${date}</p>
-              <p>Temp: ${day.main.temp} °F</p>
-              <p>Wind: ${day.wind.speed} mph</p>
-              <p>Humidity: ${day.main.humidity} %</p>
+    let currentDay = $('#day-card');
+    currentDay.html("");
+    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=current,minutely,hourly,alerts&appid=${key}`)
+    .then(response => response.json())
+    .then(data => {
+      console.log("get forecast",data);
+      for(let i = 0; i < 6; i++) {
+        const day = data.daily[i];
+        let date = new Date (day.dt * 1000)
+        const weatherCard = `
+          <div class="card">
+            <p>${date}</p>
+            <p>Temp: ${day.temp.day} °F</p>
+            <p>Wind: ${day.wind_speed} mph</p>
+            <p>Humidity: ${day.humidity} %</p>
           </div>`
-                );
-            };
-        })
-};
+        if(i === 0) {
+            currentDay.append(weatherCard);
+        } else {
+            cardContainer.append(weatherCard)
+        }
+      }
+    })
+  };
 
 // Save City Search
 function savedCity(searchCity) {
