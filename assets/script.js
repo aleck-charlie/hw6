@@ -63,9 +63,6 @@ function getUVI(lat, lon) {
         });
 };
 
-// Current Weather
-
-
 // 5 Day Forecast
 function getFiveDay(lat, lon) {
     let cardContainer = $('#city-container');
@@ -106,18 +103,10 @@ function savedCity(searchCity) {
     console.log(city);
 }
 
-function renderBtn() {
-    cityBtns.textContent = '';
-    city = city.slice(Math.max(city.length - 5, 0));
-    city.forEach(city => {
-        let btn = document.createElement('button');
-        cityBtn.prepend(btn);
-        btn.setAttribute('class', 'btn btn-outline-secondary btn-block');
-        btn.setAttribute('data-city', city);
-
-        btn.innerHTML = city;
-    })
-}
+function clearSearch(){
+    $("#city-container").empty();
+    $("#day-card").empty();
+};
 
 //Events ////////////////////////////////
 
