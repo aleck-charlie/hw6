@@ -38,7 +38,7 @@ function getWeather(city) {
 
 // UVI rating 
 function getUVI(lat, lon) {
-    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude={part}&appid=${key}`)
+    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=minutely,hourly,daily,alerts&appid=${key}`)
         .then(response => response.json())
         .then(data => {
             console.log(data.current.uvi);
@@ -78,13 +78,14 @@ function getFiveDay(lat, lon) {
       console.log("get forecast",data);
       for(let i = 0; i < 6; i++) {
         const day = data.daily[i];
-        let date = new Date (day.dt * 1000)
+        let date = new Date (day.dt * 1000)        
         const weatherCard = `
           <div class="card">
             <p>${date}</p>
             <p>Temp: ${day.temp.day} °F</p>
             <p>Wind: ${day.wind_speed} mph</p>
             <p>Humidity: ${day.humidity} %</p>
+            <p>UV Index:</p>
           </div>`
         if(i === 0) {
             currentDay.append(weatherCard);
