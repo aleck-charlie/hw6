@@ -1,25 +1,17 @@
 // global variables ///////////////
 let key = 'ed3e4f7fb5693ae16fe198f6f1667519';
+let cities = [];
 
 
 // functions ////////////////////////////
-function init() {
-    // check local storage for the key (cities) 
-    // if present, dynamically create buttons
-    let citiesStorage = localStorage.getItem('cities');
-    if (citiesStorage) {
-        // loop thru local storage and render buttons with the button label as the city
-        cities = JSON.parse(cities)
-        console.log(cities);
-        renderBtn();
-    };
 
-};
 // Search City
 function getCity(e) {
     e.preventDefault();
     let city = $("#search-form").val();
     getWeather(city);
+    savedCity(city);
+    cityBtn();
 
 }
 // Fetch API
@@ -32,7 +24,7 @@ function getWeather(city) {
             console.log(lat);
             console.log(lon);
             getUVI(lat, lon);
-            getFiveDay(lat,lon);
+            getFiveDay(lat, lon);
         })
 };
 
@@ -65,45 +57,55 @@ function getUVI(lat, lon) {
 
 // 5 Day Forecast
 function getFiveDay(lat, lon) {
+    getUVI(lat, lon);
     let cardContainer = $('#city-container');
     cardContainer.html("");
     let currentDay = $('#day-card');
     currentDay.html("");
     fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=current,minutely,hourly,alerts&appid=${key}`)
-    .then(response => response.json())
-    .then(data => {
-      console.log("get forecast",data);
-      for(let i = 0; i < 6; i++) {
-        const day = data.daily[i];
-        let date = new Date (day.dt * 1000)        
-        const weatherCard = `
+        .then(response => response.json())
+        .then(data => {
+            console.log("get forecast", data);
+            for (let i = 0; i < 6; i++) {
+                const day = data.daily[i];
+                let date = new Date(day.dt * 1000)
+                const weatherCard = `
           <div class="card">
             <p>${date}</p>
             <p>Temp: ${day.temp.day} °F</p>
             <p>Wind: ${day.wind_speed} mph</p>
             <p>Humidity: ${day.humidity} %</p>
-            <p>UV Index:</p>
+            <p id="uvi">UV Index: ${day.uvi}</p>
           </div>`
-        if(i === 0) {
-            currentDay.append(weatherCard);
-        } else {
-            cardContainer.append(weatherCard)
-        }
-      }
-    })
-  };
+                if (i === 0) {
+                    currentDay.append(weatherCard);
+                } else {
+                    cardContainer.append(weatherCard)
+                }
+            }
+        })
+
+};
+
+// unclear how to loop through cities array
+function cityBtn(cities) {
+    $("#pastBtn").empty();
+    for (i = 0; i < cities.length; i++) {
+      $("#pastBtnContainer").prepend(`<button>${cities[i]}</button>`);
+    };
+    $("pastBtn").on("click", getCity);
+};
 
 // Save City Search
 function savedCity(searchCity) {
     if (!cities.includes(searchCity)) {
         cities.push(searchCity);
     }
-    localStorage.setItem('city', JSON.stringify(city));
-    cityBtn();
-    console.log(city);
+    localStorage.setItem('cities', JSON.stringify(cities));;
+    cityBtn(searchCity);
 }
 
-function clearSearch(){
+function clearSearch() {
     $("#city-container").empty();
     $("#day-card").empty();
 };

@@ -1,25 +1,28 @@
+* {
+  font-family: DejaVu Sans Mono, monospace;
+}
+
 header {
-    font-size: 2em;
-    font-weight: bold;
-    font-family: Arial, Helvetica, sans-serif;
-    color: black;
-    text-align: center;
-    background-image: url("./imgs/cloudsbcg.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    padding: 15px;
+  font-size: 2em;
+  font-weight: bold;
+  color: black;
+  text-align: center;
+  background-color: rgb(14, 206, 219);
+  padding: 15px;
 }
 
 button {
+  display: block;
   margin: 2px;
-  width: 200px;
+  padding: 4px;
+  width: 150px;
   background-color: greenyellow;
   border: white;
 }
 
 .search-form {
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
   float: left;
   margin: 10px;
   padding: 10px;
@@ -27,13 +30,12 @@ button {
 }
 
 .day-card {
-    font-family: Arial, Helvetica, sans-serif;
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
 }
 .city-container {
-  background: rgb(218, 246, 255);
   display: flex;
   margin: 20px;
 }
@@ -44,24 +46,40 @@ button {
   flex-direction: column;
   border: 1px solid grey;
   padding: 5px;
+  margin: 15px;
+}
+
+.forecast-card {
+  background: rgb(218, 246, 255);
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid grey;
+  padding: 5px;
+  margin: 15px;
 }
 
 .low {
-  background: green;
+  background: greenyellow;
+  width: fit-content;
 }
 
 .moderate {
   background: yellow;
+  width: fit-content;
 }
 
 .high {
   background: orange;
+  width: fit-content;
 }
 
 .very-high {
   background: red;
+  width: fit-content;
 }
 
 .extreme {
   background: purple;
+  width: fit-content;
 }
