@@ -11,8 +11,6 @@ function getCity(e) {
     let city = $("#search-form").val();
     getWeather(city);
     savedCity(city);
-    cityBtn();
-
 }
 // Fetch API
 function getWeather(city) {
@@ -68,10 +66,17 @@ function getFiveDay(lat, lon) {
             console.log("get forecast", data);
             for (let i = 0; i < 6; i++) {
                 const day = data.daily[i];
-                let date = new Date(day.dt * 1000)
+                // let date = new Date(day.dt * 1000)
+                var currentdate = new Date()
+                var datetime = currentdate.toLocaleDateString();
+                // + (currentdate.getMonth()+1)  + "/" 
+                // + currentdate.getFullYear() + " @ "  
+                // + currentdate.getHours() + ":"  
+                // + currentdate.getMinutes() + ":" 
+                // + currentdate.getSeconds();
                 const weatherCard = `
           <div class="card">
-            <p>${date}</p>
+            <p>${datetime}</p>
             <p>Temp: ${day.temp.day} °F</p>
             <p>Wind: ${day.wind_speed} mph</p>
             <p>Humidity: ${day.humidity} %</p>
@@ -87,31 +92,38 @@ function getFiveDay(lat, lon) {
 
 };
 
-// unclear how to loop through cities array
-function cityBtn(cities) {
-    $("#pastBtn").empty();
-    for (i = 0; i < cities.length; i++) {
-      $("#pastBtnContainer").prepend(`<button>${cities[i]}</button>`);
-    };
-    $("pastBtn").on("click", getCity);
-};
-
 // Save City Search
 function savedCity(searchCity) {
     if (!cities.includes(searchCity)) {
         cities.push(searchCity);
     }
     localStorage.setItem('cities', JSON.stringify(cities));;
-    cityBtn(searchCity);
+    historyDiv();
+}
+
+function historyDiv(){
+    $('.history').empty(); 
+    const historyArr = JSON.parse(localStorage.getItem('cities'))
+    historyArr.map( pastCity => {
+    let container = $('<div>'); 
+    let btn = $('<button>')
+    btn.text(pastCity)
+    btn.on('click', getCity);
+    container.append(btn); 
+    $('.history').prepend(container);    
+    })
+      
 }
 
 function clearSearch() {
     $("#city-container").empty();
     $("#day-card").empty();
+    localStorage.clear(); 
 };
 
 //Events ////////////////////////////////
 
 // Search Button
 $('#submit').on('click', getCity);
+$('#clearSearch').on('click', clearSearch);
 // click on past city button
