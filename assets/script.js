@@ -19,8 +19,6 @@ function getWeather(city) {
         .then(data => {
             let lat = data.coord.lat;
             let lon = data.coord.lon;
-            console.log(lat);
-            console.log(lon);
             getUVI(lat, lon);
             getFiveDay(lat, lon);
         })
@@ -31,7 +29,6 @@ function getUVI(lat, lon) {
     fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=minutely,hourly,daily,alerts&appid=${key}`)
         .then(response => response.json())
         .then(data => {
-            console.log(data.current.uvi);
             let uviScore = data['current']['uvi'];
             let uvEl = $('#uvi');
             if (uviScore < 2) {
@@ -63,7 +60,6 @@ function getFiveDay(lat, lon) {
     fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=current,minutely,hourly,alerts&appid=${key}`)
         .then(response => response.json())
         .then(data => {
-            console.log("get forecast", data);
             for (let i = 0; i < 6; i++) {
                 const day = data.daily[i];
                 // let date = new Date(day.dt * 1000)
@@ -126,4 +122,3 @@ function clearSearch() {
 // Search Button
 $('#submit').on('click', getCity);
 $('#clearSearch').on('click', clearSearch);
-// click on past city button
