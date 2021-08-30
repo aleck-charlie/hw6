@@ -1,4 +1,11 @@
-Description
-This is an early version of a weather app that uses a free weather API to display a five day forcast for a city typed in by the user. 
+## Description
+This application is my first deployed portfolio site, complete with project links and contact info
 
-Find the most up to date version at https://aleck-charlie.github.io/weather_dashboard/
+## Deployed Site
+The deployed portfolio can be found at https://aleck-charlie.github.io/portfolio/
+
+## LinkedIn
+Find my LinkedIn at : https://www.linkedin.com/in/charlie-aleck-755785205/
+
+## Contact
+Feel free to contact me at: aleckcharlie@gmail.com
